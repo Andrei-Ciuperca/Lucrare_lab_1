@@ -21,12 +21,19 @@ public class Faculty  {
         faculties.add(this);
 
     }
+
+    public static Faculty getFacultyByAbbreviation(String abbreviation){
+        for (Faculty faculties : faculties) {
+            if (faculties.getAbbreviation().equals(abbreviation)) {
+                return faculties;
+            }
+        }
+        return null;
+    }
     // General Operations
     public static void displayStudentFaculty(String email){
-        Iterator<Student> iterator = studentList.iterator();
-        while(iterator.hasNext()){
-            Student student = iterator.next();
-            if (student.getEmail().equals(email)){
+        for (Student student : studentList) {
+            if (student.getEmail().equals(email)) {
                 System.out.println(student.getFirstName() + " " + student.getLastName() + " belongs to the " + student.getFaculty().getName() + " faculty.");
             }
         }
@@ -37,9 +44,7 @@ public class Faculty  {
         System.out.println("Here are all the faculties:");
 
         for (Faculty faculty : faculties) {
-            System.out.println(faculty.getName());
-            System.out.println(faculty.getAbbreviation());
-            System.out.println(faculty.getStudyField());
+            System.out.println("Name: " + faculty.getName() + ", Abbreviation: " + faculty.getAbbreviation() + ", Study Field: " + faculty.getStudyField());
         }
 
     }
