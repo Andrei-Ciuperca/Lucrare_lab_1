@@ -6,23 +6,25 @@ public class Student {
     private String email;
     private Date enrollmentDate;
     private Date dateOfBirth;
-    private StudyField studyField;
+    private Faculty faculty;
 
-    public Student(String firstName, String lastName, String email, Date enrollmentDate, Date dateOfBirth, StudyField studyField) {
+
+    public Student(String firstName, String lastName, String email, Date enrollmentDate, Date dateOfBirth, Faculty faculty) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.enrollmentDate = enrollmentDate;
         this.dateOfBirth = dateOfBirth;
-        this.studyField = studyField;
+        this.faculty = faculty;
     }
 
-    public StudyField getStudyField() {
-        return studyField;
+
+    public Faculty getFaculty() {
+        return faculty;
     }
 
-    public void setStudyField(StudyField studyField) {
-        this.studyField = studyField;
+    public void setFaculty(Faculty faculty) {
+        this.faculty = faculty;
     }
 
     public String getFirstName() {
