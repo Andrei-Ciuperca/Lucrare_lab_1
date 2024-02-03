@@ -7,20 +7,22 @@ public class Faculty  {
     private String abbreviation;
     private ArrayList<Student> studentList;
     private StudyField studyField;
-    private final ArrayList<Student> graduates;
-    private  ArrayList<StudyField> faculties;
+    private ArrayList<Student> graduates;
 
-    public Faculty(){
+
+
+    public Faculty(String name, String abbreviation, StudyField studyField) {
+        this.name = name;
+        this.abbreviation = abbreviation;
+        this.studyField = studyField;
         this.studentList = new ArrayList<>();
         this.graduates = new ArrayList<>();
-        this.faculties = new ArrayList<>();
     }
-
     // General Operations
-    public void addFaculty(StudyField studyField, String name, String abbreviation){
-        System.out.println(name + " has been added as " + abbreviation + " to the " + studyField + " field.");
-        faculties.add(studyField);
-    }
+//    public void addFaculty(StudyField studyField, String name, String abbreviation){
+//        System.out.println(name + " has been added as " + abbreviation + " to the " + studyField + " field.");
+//        faculties.add(studyField);
+//    }
 
     // Faculty Operations
     public void createStudent(Student student){
@@ -34,7 +36,7 @@ public class Faculty  {
             Student graduatedStudent = iterator.next();
             if (graduatedStudent.getEmail().equals(email)){
                 graduates.add(graduatedStudent); // Used for displaying graduated students later
-                System.out.println(graduatedStudent.getFirstName() + " " + graduatedStudent.getLastName() + " has graduated from: " + graduatedStudent.getStudyField());
+                System.out.println(graduatedStudent.getFirstName() + " " + graduatedStudent.getLastName() + " has graduated from: " + graduatedStudent.getFaculty().getName());
                 iterator.remove();
                 return;
             }
@@ -42,9 +44,9 @@ public class Faculty  {
 
     }
 
-    public void displayStudents(StudyField abbreviation){
+    public void displayStudents(String abbreviation){
         for (Student student : studentList) {
-            if (student.getStudyField().equals(abbreviation)) {
+            if (student.getFaculty().getAbbreviation().equals(abbreviation)) {
                 System.out.println("Current students enrolled in " + abbreviation + ":");
                 for (Student student1 : studentList) {
                     System.out.println(student1.getFirstName());
@@ -53,9 +55,9 @@ public class Faculty  {
         }
     }
 
-    public void displayGraduatedStudents(StudyField abbreviation){
+    public void displayGraduatedStudents(String abbreviation){
         for (Student student : studentList) {
-            if (student.getStudyField().equals(abbreviation)) {
+            if (student.getFaculty().getAbbreviation().equals(abbreviation)) {
                 System.out.println("Students who graduated " + abbreviation + ":");
                 for (Student student1 : graduates) {
                     System.out.println(student1.getFirstName());
@@ -64,9 +66,9 @@ public class Faculty  {
         }
     }
 
-    public void isStudentFromFaculty(StudyField abbreviation, String email){
+    public void isStudentFromFaculty(String abbreviation, String email){
         for (Student student : studentList) {
-            if (student.getStudyField().equals(abbreviation) && student.getEmail().equals(email)) {
+            if (student.getFaculty().getAbbreviation().equals(abbreviation) && student.getEmail().equals(email)) {
                 System.out.println("Student does belong to faculty");
             } else {
                 System.out.println("Student does not belong to faculty");
