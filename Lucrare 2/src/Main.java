@@ -16,18 +16,24 @@ public class Main {
 
 
 
+
         // General operations:
-        // Creating a faculty
+        // Step 1: Creating a faculty
         Faculty CSI = new Faculty("Computer Science", "CSI", StudyField.SOFTWARE_ENGINEERING);
+        Faculty MTC = new Faculty("Media And Telecommunications", "MTC", StudyField.SOFTWARE_ENGINEERING);
+        // Step 3: Display all faculties
+        Faculty.displayAllFaculties();
+        // Step 4: Display all faculties of a Field
+        Faculty.displayAllFacultiesOfAField(StudyField.SOFTWARE_ENGINEERING);
 
-
-        // Facultyy Operations:
+        // Faculty operations
         // Step 1: Create and assign student to a faculty
         StudyField SE = StudyField.SOFTWARE_ENGINEERING;
         Student student1 = new Student("Andrei", "Ciuperca", "ciuperca.andries@gmail.com", new Date(), new Date(), CSI);
         Student student2 = new Student("Sebastian", "Finciuc", "sebastian.finciuc@gmail.com", new Date(), new Date(), CSI);
         CSI.createStudent(student1);
         CSI.createStudent(student2);
+
 
         // Step 2: Graduating a student by email
         CSI.graduateStudent("ciuperca.andries@gmail.com");
@@ -41,6 +47,9 @@ public class Main {
         // Step 5: Tell if students belongs or not to faculty
         CSI.isStudentFromFaculty("CSI", "sebastian.finciuc@gmail.com");
 
+        // General Operations
+        // Step 2: Display a students faculty by their Email
+        CSI.displayStudentFaculty("sebastian.finciuc@gmail.com");
 
     }
 }

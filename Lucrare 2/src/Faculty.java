@@ -8,6 +8,7 @@ public class Faculty  {
     private ArrayList<Student> studentList;
     private StudyField studyField;
     private ArrayList<Student> graduates;
+    private static ArrayList<Faculty> faculties = new ArrayList<>();
 
 
 
@@ -17,12 +18,36 @@ public class Faculty  {
         this.studyField = studyField;
         this.studentList = new ArrayList<>();
         this.graduates = new ArrayList<>();
+        faculties.add(this);
+
     }
     // General Operations
-//    public void addFaculty(StudyField studyField, String name, String abbreviation){
-//        System.out.println(name + " has been added as " + abbreviation + " to the " + studyField + " field.");
-//        faculties.add(studyField);
-//    }
+    public  void displayStudentFaculty(String email){
+        Iterator<Student> iterator = studentList.iterator();
+        while(iterator.hasNext()){
+            Student student = iterator.next();
+            if (student.getEmail().equals(email)){
+                System.out.println(student.getFirstName() + " " + student.getLastName() + " belongs to the " + student.getFaculty().getName() + " faculty.");
+            }
+        }
+    }
+
+
+    public static void displayAllFaculties(){
+        System.out.println("Here are all the faculties:");
+        for (Faculty faculty : faculties){
+            System.out.println(faculty.getName());
+        }
+    }
+
+    public static void displayAllFacultiesOfAField(StudyField studyField){
+        System.out.println("Here are all the faculties belonging to " + studyField);
+        for (Faculty faculty : faculties){
+            if (faculty.getStudyField().equals(studyField)){
+                System.out.println(faculty.getName());
+            }
+        }
+    }
 
     // Faculty Operations
     public void createStudent(Student student){
