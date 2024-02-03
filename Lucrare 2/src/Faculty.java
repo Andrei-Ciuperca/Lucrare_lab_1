@@ -5,7 +5,7 @@ public class Faculty  {
     private ArrayList<Student> students;
     private String name;
     private String abbreviation;
-    private ArrayList<Student> studentList;
+    private static ArrayList<Student> studentList;
     private StudyField studyField;
     private ArrayList<Student> graduates;
     private static ArrayList<Faculty> faculties = new ArrayList<>();
@@ -22,7 +22,7 @@ public class Faculty  {
 
     }
     // General Operations
-    public  void displayStudentFaculty(String email){
+    public static void displayStudentFaculty(String email){
         Iterator<Student> iterator = studentList.iterator();
         while(iterator.hasNext()){
             Student student = iterator.next();
@@ -33,11 +33,15 @@ public class Faculty  {
     }
 
 
-    public static void displayAllFaculties(){
+    public static void displayAllFaculties() {
         System.out.println("Here are all the faculties:");
-        for (Faculty faculty : faculties){
+
+        for (Faculty faculty : faculties) {
             System.out.println(faculty.getName());
+            System.out.println(faculty.getAbbreviation());
+            System.out.println(faculty.getStudyField());
         }
+
     }
 
     public static void displayAllFacultiesOfAField(StudyField studyField){
@@ -79,7 +83,7 @@ public class Faculty  {
             }
         }
     }
-
+//get student - cu abbreviation, gasesti student si return
     public void displayGraduatedStudents(String abbreviation){
         for (Student student : studentList) {
             if (student.getFaculty().getAbbreviation().equals(abbreviation)) {
