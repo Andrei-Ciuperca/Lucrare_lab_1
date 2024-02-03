@@ -7,18 +7,15 @@ public class Student {
     private Date enrollmentDate;
     private Date dateOfBirth;
     private Faculty faculty;
-    private  boolean isGraduated;
 
 
-    public Student(String firstName, String lastName, String email, Date enrollmentDate, Date dateOfBirth, Faculty faculty, boolean isGraduated) {
+    public Student(String firstName, String lastName, String email, Date enrollmentDate, Date dateOfBirth, Faculty faculty) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.enrollmentDate = enrollmentDate;
         this.dateOfBirth = dateOfBirth;
         this.faculty = faculty;
-        this.isGraduated = isGraduated;
-
     }
 
 
