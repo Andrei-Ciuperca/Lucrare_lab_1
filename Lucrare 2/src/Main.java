@@ -18,13 +18,6 @@ public class Main {
         Student student2 = new Student("Sebastian", "Finciuc", "sebastian.finciuc@gmail.com", new Date(), new Date(), CSI, false);
         CSI.createStudent(student2);
 
-
-        // General operations:
-        // Step 1: Creating a faculty
-        // Step 3: Display all faculties
-        // Step 4: Display all faculties of a Field
-       // Faculty.displayAllFacultiesOfAField(StudyField.SOFTWARE_ENGINEERING);
-
         while(!shouldFinish) {
             System.out.print("TUM Board Command Line \n" +
                     "\t1. General Operations \n" +
