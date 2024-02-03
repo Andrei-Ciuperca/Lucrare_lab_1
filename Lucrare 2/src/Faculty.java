@@ -5,7 +5,7 @@ public class Faculty  {
     private ArrayList<Student> students;
     private String name;
     private String abbreviation;
-    private static ArrayList<Student> studentList;
+    private ArrayList<Student> studentList;
     private StudyField studyField;
     private ArrayList<Student> graduates;
     private static ArrayList<Faculty> faculties = new ArrayList<>();
@@ -21,32 +21,23 @@ public class Faculty  {
         faculties.add(this);
 
     }
-
-    public static Faculty getFacultyByAbbreviation(String abbreviation){
-        for (Faculty faculties : faculties) {
-            if (faculties.getAbbreviation().equals(abbreviation)) {
-                return faculties;
-            }
-        }
-        return null;
-    }
     // General Operations
-    public static void displayStudentFaculty(String email){
-        for (Student student : studentList) {
-            if (student.getEmail().equals(email)) {
+    public  void displayStudentFaculty(String email){
+        Iterator<Student> iterator = studentList.iterator();
+        while(iterator.hasNext()){
+            Student student = iterator.next();
+            if (student.getEmail().equals(email)){
                 System.out.println(student.getFirstName() + " " + student.getLastName() + " belongs to the " + student.getFaculty().getName() + " faculty.");
             }
         }
     }
 
 
-    public static void displayAllFaculties() {
+    public static void displayAllFaculties(){
         System.out.println("Here are all the faculties:");
-
-        for (Faculty faculty : faculties) {
-            System.out.println("Name: " + faculty.getName() + ", Abbreviation: " + faculty.getAbbreviation() + ", Study Field: " + faculty.getStudyField());
+        for (Faculty faculty : faculties){
+            System.out.println(faculty.getName());
         }
-
     }
 
     public static void displayAllFacultiesOfAField(StudyField studyField){
@@ -88,7 +79,7 @@ public class Faculty  {
             }
         }
     }
-//get student - cu abbreviation, gasesti student si return
+
     public void displayGraduatedStudents(String abbreviation){
         for (Student student : studentList) {
             if (student.getFaculty().getAbbreviation().equals(abbreviation)) {
