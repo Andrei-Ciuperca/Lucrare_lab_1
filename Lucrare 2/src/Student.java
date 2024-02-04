@@ -7,7 +7,7 @@ public class Student {
     private Date enrollmentDate;
     private Date dateOfBirth;
     private Faculty faculty;
-    private  boolean isGraduated;
+    private boolean isGraduated;
 
 
     public Student(String firstName, String lastName, String email, Date enrollmentDate, Date dateOfBirth, Faculty faculty, boolean isGraduated) {
@@ -21,6 +21,14 @@ public class Student {
 
     }
 
+
+    public boolean isGraduated() {
+        return isGraduated;
+    }
+
+    public void setGraduated(boolean graduated) {
+        isGraduated = graduated;
+    }
 
     public Faculty getFaculty() {
         return faculty;

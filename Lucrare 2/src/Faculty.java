@@ -7,8 +7,8 @@ public class Faculty  {
     private String abbreviation;
     private static ArrayList<Student> studentList;
     private StudyField studyField;
-    private ArrayList<Student> graduates;
-    private static ArrayList<Faculty> faculties = new ArrayList<>();
+    private final ArrayList<Student> graduates;
+    private static final ArrayList<Faculty> faculties = new ArrayList<>();
 
 
 
@@ -16,7 +16,7 @@ public class Faculty  {
         this.name = name;
         this.abbreviation = abbreviation;
         this.studyField = studyField;
-        this.studentList = new ArrayList<>();
+        studentList = new ArrayList<>();
         this.graduates = new ArrayList<>();
         faculties.add(this);
 
@@ -62,45 +62,35 @@ public class Faculty  {
     public void createStudent(Student student){
         studentList.add(student);
         System.out.println(student.getFirstName() + " " + student.getLastName() + " was added to the student list");
+        student.setGraduated(false);
+        System.out.println(student.isGraduated());
     }
 
-    public void graduateStudent(String email){
-        Iterator<Student> iterator = studentList.iterator();
-        while (iterator.hasNext()){
-            Student graduatedStudent = iterator.next();
-            if (graduatedStudent.getEmail().equals(email)){
-                graduates.add(graduatedStudent); // Used for displaying graduated students later
-                System.out.println(graduatedStudent.getFirstName() + " " + graduatedStudent.getLastName() + " has graduated from: " + graduatedStudent.getFaculty().getName());
-                iterator.remove();
-                return;
+
+    public static void graduateStudent(String email){
+        for (Student student : studentList){
+            if (student.getEmail().equals(email)) {
+                System.out.println(student.getFirstName() + " " + student.getLastName() + " has graduated from: " + student.getFaculty().getName());
+                student.setGraduated(true);
             }
         }
-
     }
 
-    public void displayStudents(String abbreviation){
+
+
+// WHAT THE ACTUAL FUCK IS GOING ON
+    public static void displayStudents(String abbreviation, boolean isGraduated){
         for (Student student : studentList) {
-            if (student.getFaculty().getAbbreviation().equals(abbreviation)) {
-                System.out.println("Current students enrolled in " + abbreviation + ":");
-                for (Student student1 : studentList) {
-                    System.out.println(student1.getFirstName());
-                }
-            }
-        }
-    }
-//get student - cu abbreviation, gasesti student si return
-    public void displayGraduatedStudents(String abbreviation){
-        for (Student student : studentList) {
-            if (student.getFaculty().getAbbreviation().equals(abbreviation)) {
-                System.out.println("Students who graduated " + abbreviation + ":");
-                for (Student student1 : graduates) {
-                    System.out.println(student1.getFirstName());
-                }
+            if (student.getFaculty().getAbbreviation().equals(abbreviation) && !student.isGraduated() && !isGraduated) {
+                System.out.println(student.getFirstName() + " " + student.getLastName());
+            } else if (student.getFaculty().getAbbreviation().equals(abbreviation) && student.isGraduated() && isGraduated) {
+                System.out.println(student.getFirstName() + " " + student.getLastName());
             }
         }
     }
 
-    public void isStudentFromFaculty(String abbreviation, String email){
+
+    public static void isStudentFromFaculty(String abbreviation, String email){
         for (Student student : studentList) {
             if (student.getFaculty().getAbbreviation().equals(abbreviation) && student.getEmail().equals(email)) {
                 System.out.println("Student does belong to faculty");
@@ -109,6 +99,7 @@ public class Faculty  {
             }
         }
     }
+
     public ArrayList<Student> getStudents() {
         return students;
     }
@@ -138,7 +129,7 @@ public class Faculty  {
     }
 
     public void setStudentList(ArrayList<Student> studentList) {
-        this.studentList = studentList;
+        Faculty.studentList = studentList;
     }
 
     public StudyField getStudyField() {

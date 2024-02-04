@@ -22,8 +22,7 @@ public class Main {
             System.out.print("TUM Board Command Line \n" +
                     "\t1. General Operations \n" +
                     "\t2. Faculty Operations \n" +
-                    "\t3. Student Operations \n" +
-                    "\t4. Quit \n" +
+                    "\t3. Quit \n" +
                     "Please chose one of the above options: ");
             int choice = scanner.nextInt();
             switch (choice) {
@@ -70,7 +69,8 @@ public class Main {
                             "\t1.Create a new student\n" +
                             "\t2.Graduate student by email\n" +
                             "\t3.Display all enrolled students in a faculty\n" +
-                            "\t4.Check if student belongs to faculty");
+                            "\t4.Display all students graduated from a faculty\n" +
+                            "\t5.Check if student belongs to faculty");
                     switch (scanner.nextInt()) {
                         case 1 -> {
                             scanner.nextLine();
@@ -91,14 +91,44 @@ public class Main {
                             studentFaculty.createStudent(student);
                             // CSI.displayStudents("CSI"); Test code to check student was added
                         }
+                        case 2 -> {
+                            scanner.nextLine();
+                            System.out.println("Enter email of student you'd like to graduate: ");
+                            String sEmail = scanner.nextLine();
+
+                            Faculty.graduateStudent(sEmail);
+                        }
+                        case 3 -> {
+                            scanner.nextLine();
+                            System.out.println("Enter faculty abbreviation: ");
+                            String abbreviation = scanner.nextLine();
+                            System.out.println("Students enrolled in " + abbreviation + ":");
+                            Faculty.displayStudents(abbreviation, false);
+                        }
+                        case 4 -> {
+                            scanner.nextLine();
+                            System.out.println("Enter faculty abbreviation: ");
+                            String abbreviation = scanner.nextLine();
+                            System.out.println("Students graduated from " + abbreviation + ":");
+                            Faculty.displayStudents(abbreviation, true);
+
+                        }
+                        case 5 -> {
+                            scanner.nextLine();
+                            System.out.println("Enter student email");
+                            String sEmail = scanner.nextLine();
+                            System.out.println("Enter faculty abbreviation");
+                            String abbreviation = scanner.nextLine();
+
+                            Faculty.isStudentFromFaculty(abbreviation, sEmail);
+                        }
                     }
                     break;
+
                 case 3:
-                    // Search for student faculty
+                    shouldFinish = true;
                     break;
-                case 4:
-                    // Display all faculties belonging to a field
-                    break;
+
                 default:
                     System.out.println("world");
             }
