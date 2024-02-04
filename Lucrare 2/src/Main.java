@@ -134,38 +134,5 @@ public class Main {
             }
         }
 
-
-
-//        // General operations:
-//        // Step 1: Creating a faculty
-//        // Step 3: Display all faculties
-//        Faculty.displayAllFaculties();
-//        // Step 4: Display all faculties of a Field
-//        Faculty.displayAllFacultiesOfAField(StudyField.SOFTWARE_ENGINEERING);
-//
-//        // Faculty operations
-//        // Step 1: Create and assign student to a faculty
-//        StudyField SE = StudyField.SOFTWARE_ENGINEERING;
-//
-//
-//        // Step 2: Graduating a student by email
-//        CSI.graduateStudent("ciuperca.andries@gmail.com");
-//
-//        // Step 3: Display current enrolled students by faculty (No graduates)
-//
-//        // Step 4: Display graduates (No enrolled students)
-//        CSI.displayGraduatedStudents("CSI");
-//
-//        // Step 5: Tell if students belongs or not to faculty
-//        CSI.isStudentFromFaculty("CSI", "sebastian.finciuc@gmail.com");
-//
-//        // General Operations
-//        // Step 2: Display a students faculty by their Email
-//        CSI.displayStudentFaculty("sebastian.finciuc@gmail.com");
-
-        // General Operations
-        // Step 2: Display a students faculty by their Email
-
-
     }
 }

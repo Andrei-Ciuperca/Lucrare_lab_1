@@ -9,7 +9,6 @@ public class Student {
     private Faculty faculty;
     private boolean isGraduated;
 
-
     public Student(String firstName, String lastName, String email, Date enrollmentDate, Date dateOfBirth, Faculty faculty, boolean isGraduated) {
         this.firstName = firstName;
         this.lastName = lastName;
@@ -20,7 +19,6 @@ public class Student {
         this.isGraduated = isGraduated;
 
     }
-
 
     public boolean isGraduated() {
         return isGraduated;
