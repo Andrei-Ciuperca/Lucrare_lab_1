@@ -7,17 +7,26 @@ public class Student {
     private Date enrollmentDate;
     private Date dateOfBirth;
     private Faculty faculty;
+    private boolean isGraduated;
 
-
-    public Student(String firstName, String lastName, String email, Date enrollmentDate, Date dateOfBirth, Faculty faculty) {
+    public Student(String firstName, String lastName, String email, Date enrollmentDate, Date dateOfBirth, Faculty faculty, boolean isGraduated) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.enrollmentDate = enrollmentDate;
         this.dateOfBirth = dateOfBirth;
         this.faculty = faculty;
+        this.isGraduated = isGraduated;
+
     }
 
+    public boolean isGraduated() {
+        return isGraduated;
+    }
+
+    public void setGraduated(boolean graduated) {
+        isGraduated = graduated;
+    }
 
     public Faculty getFaculty() {
         return faculty;
