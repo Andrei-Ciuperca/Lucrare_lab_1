@@ -23,7 +23,6 @@ public class Main {
 //        T.createStudent(student3);
 
 
-
         while(!shouldFinish) {
             System.out.print("""
                     TUM Board Command Line\s
@@ -49,12 +48,38 @@ public class Main {
                             String fName = scanner.nextLine();
                             System.out.println("Enter Faculty Abbreviation: ");
                             String fAbbreviation = scanner.nextLine();
-                            System.out.println("Enter Study Field (e.g., SOFTWARE_ENGINEERING): "); //TODO: Transform this into a pick the field
-                            StudyField field = StudyField.valueOf(scanner.nextLine());
+                            System.out.println("""
+                                    Enter Study Field: \s  +
+                                    \t1.Mechanical Engineering
+                                    \t2.Software Engineering
+                                    \t3.Food technology
+                                    \t4.Urbanism Architecture
+                                    \t5.Veterinary medicine""");
 
-                            new Faculty(fName, fAbbreviation, field);
-                            // Faculty.displayAllFaculties(); Test code for checking the Faculty was added
-//                      Faculty MTC = new Faculty("Media And Telecommunications", "MTC", StudyField.SOFTWARE_ENGINEERING); Example of faculty to add
+                            switch (scanner.nextInt()){
+                                case 1 -> {
+                                    StudyField field = StudyField.MECHANICAL_ENGINEERING;
+                                    new Faculty(fName, fAbbreviation, field);
+
+                                }
+                                case 2 -> {
+                                    StudyField field = StudyField.SOFTWARE_ENGINEERING;
+                                    new Faculty(fName, fAbbreviation, field);
+                                }
+                                case 3 -> {
+                                    StudyField field = StudyField.FOOD_TECHNOLOGY;
+                                    new Faculty(fName, fAbbreviation, field);
+                                }
+                                case 4 -> {
+                                    StudyField field = StudyField.URBANISM_ARCHITECTURE;
+                                    new Faculty(fName, fAbbreviation, field);
+                                }
+                                case 5 -> {
+                                    StudyField field = StudyField.VETERINARY_MEDICINE;
+                                    new Faculty(fName, fAbbreviation, field);
+                                }
+                            }
+                            break;
                         }
                         case 2 -> {
                             scanner.nextLine();
@@ -96,8 +121,7 @@ public class Main {
                             Faculty studentFaculty = Faculty.getFacultyByAbbreviation(fAbbreviation);
 
                             Student student = new Student(sFirstName, sLastName, sEmail, new Date(), new Date(), studentFaculty, false);
-                            System.out.println("student created!!!");
-                            assert studentFaculty != null;
+                            System.out.println("Student: " + student.getFirstName() + " " + student.getLastName() + " has been created and added to the: " + studentFaculty.getName() + " faculty");
                             studentFaculty.createStudent(student);
                         }
                         case 2 -> {
@@ -106,6 +130,7 @@ public class Main {
                             String sEmail = scanner.nextLine();
 
                             Faculty.graduateStudent(sEmail);
+
                         }
                         case 3 -> {
                             scanner.nextLine();

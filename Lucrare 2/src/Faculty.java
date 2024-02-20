@@ -78,8 +78,9 @@ public class Faculty  {
     public static void graduateStudent(String email){
         for (Student student : studentList){
             if (student.getEmail().equals(email)) {
-                // System.out.println(student.getFirstName() + " " + student.getLastName() + " has graduated from: " + student.getFaculty().getName());
+                System.out.println(student.getFirstName() + " " + student.getLastName() + " has graduated from: " + student.getFaculty().getName());
                 student.setGraduated(true);
+                System.out.println(student.isGraduated());
             }
         }
     }
@@ -99,9 +100,7 @@ public class Faculty  {
     public static void isStudentFromFaculty(String abbreviation, String email){
         for (Student student : studentList) {
             if (student.getFaculty().getAbbreviation().equals(abbreviation) && student.getEmail().equals(email)) {
-                System.out.println("Student does belong to faculty!");
-            } else {
-                System.out.println("Student does not belong to faculty!");
+                System.out.println("Student " + student.getFirstName() + " " + student.getLastName() + " does belong to faculty: " + student.getFaculty().getName());
             }
         }
     }
