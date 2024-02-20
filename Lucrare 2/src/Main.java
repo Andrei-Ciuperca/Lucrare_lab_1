@@ -31,7 +31,7 @@ public class Main {
                     "\t1. General Operations \n" +
                     "\t2. Faculty Operations \n" +
                     "\t3. File Management \n"+
-                    "\t4. Quit \n" +
+                    "\t4. Quit (Auto-saves Faculties and Students)\n" +
                     "Please chose one of the above options: ");
             int choice = scanner.nextInt();
             switch (choice) {
@@ -135,13 +135,23 @@ public class Main {
                     break;
 
                 case 3:
-                    FileManagement.readFromFile();
-//                    FileManagement.writeToFile(Faculty.faculties);
-                    break;
+                    System.out.println("File Management options: \n" +
+                            "\t1.Save all changes made to Students/Faculties \n" +
+                            "\t2.Load from saved file\n");
+                    switch (scanner.nextInt()) {
+                        case 1 -> {
+                            FileManagement.writeToFile(Faculty.getFaculties());
+                            System.out.println("Saved all Faculties and Students!");
+                        }
+                        case 2 -> {
+                            FileManagement.readFromFile();
+                            System.out.println("Loaded all Faculties and Students!");
+                        }
+                    }break;
                 case 4:
                     shouldFinish = true;
+                    FileManagement.writeToFile(Faculty.getFaculties());
                     break;
-
 
                 default:
                     System.out.println("world");

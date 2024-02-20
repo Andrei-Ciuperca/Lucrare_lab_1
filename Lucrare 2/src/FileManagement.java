@@ -54,7 +54,6 @@ class FileManagement {
                         String facultyAbbreviation = data[1];
                         StudyField studyField = StudyField.valueOf(data[2]);
                         Faculty faculty = new Faculty(facultyName, facultyAbbreviation, studyField);
-                        System.out.println(faculty.getName() + " was created");
                     } else if (data.length == 7) {
                         // Student information
                         String firstName = data[0];
