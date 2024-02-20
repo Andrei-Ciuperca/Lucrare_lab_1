@@ -1,12 +1,11 @@
 import java.util.ArrayList;
-import java.util.Iterator;
 
 public class Faculty  {
-    private String name;
-    private String abbreviation;
-    private static ArrayList<Student> studentList = new ArrayList<>();
-    private StudyField studyField;
-    private static ArrayList<Faculty> faculties = new ArrayList<>();
+    private final String name;
+    private final String abbreviation;
+    private static final ArrayList<Student> studentList = new ArrayList<>();
+    private final StudyField studyField;
+    private static final ArrayList<Faculty> faculties = new ArrayList<>();
 
 
     public Faculty(String name, String abbreviation, StudyField studyField) {
@@ -14,26 +13,22 @@ public class Faculty  {
         this.abbreviation = abbreviation;
         this.studyField = studyField;
         faculties.add(this);
-        assert studentList !=null;
     }
 
     public String toString(){
         return name+ ";" + abbreviation + ";" + studyField;
     }
     public String toStudentString(Student student) {
-        StringBuilder result = new StringBuilder();
-
-            result.append(student.getFirstName()).append(";")
-                    .append(student.getLastName()).append(";")
-                    .append(student.getEmail()).append(";")
-                    .append(student.getEnrollmentDate()).append(";")
-                    .append(student.getDateOfBirth()).append(";")
-                    .append(student.getFaculty().getAbbreviation()).append(";")
-                    .append(student.isGraduated()).append(";")
-                    .append("\n"); // Add faculty name for each student
 
 
-        return result.toString();
+        return student.getFirstName() + ";" +
+                student.getLastName() + ";" +
+                student.getEmail() + ";" +
+                student.getEnrollmentDate() + ";" +
+                student.getDateOfBirth() + ";" +
+                student.getFaculty().getAbbreviation() + ";" +
+                student.isGraduated() + ";" +
+                "\n";
     }
 
     public static Faculty getFacultyByAbbreviation(String abbreviation){

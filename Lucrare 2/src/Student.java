@@ -1,13 +1,13 @@
 import java.util.Date;
 
 public class Student {
-    private String firstName;
-    private String lastName;
-    private String email;
-    private Date enrollmentDate;
-    private Date dateOfBirth;
-    private Faculty faculty;
-    private boolean isGraduated;
+    private final String firstName;
+    private final String lastName;
+    private final String email;
+    private final Date enrollmentDate;
+    private final Date dateOfBirth;
+    private final Faculty faculty;
+    private final boolean isGraduated;
 
     public Student(String firstName, String lastName, String email, Date enrollmentDate, Date dateOfBirth, Faculty faculty, boolean isGraduated) {
         this.firstName = firstName;
@@ -39,5 +39,8 @@ public class Student {
     }
     public Date getDateOfBirth() {
         return dateOfBirth;
+    }
+
+    public void setGraduated(boolean b) {
     }
 }

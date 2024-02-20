@@ -1,11 +1,8 @@
 import java.io.*;
-import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 class FileManagement {
-
-    private Faculty faculty;
 
     public static void writeToFile(List<Faculty> faculties) {
         try {
@@ -22,7 +19,7 @@ class FileManagement {
 
                 // Saving the students
                 for (Student student : faculty.getStudentList()) {
-                    if (student.getFaculty().getName() == faculty.getName()) {
+                    if (Objects.equals(student.getFaculty().getName(), faculty.getName())) {
                         bufferedWriter.write(faculty.toStudentString(student));
                     }
                 }
@@ -53,7 +50,7 @@ class FileManagement {
                         String facultyName = data[0];
                         String facultyAbbreviation = data[1];
                         StudyField studyField = StudyField.valueOf(data[2]);
-                        Faculty faculty = new Faculty(facultyName, facultyAbbreviation, studyField);
+                        new Faculty(facultyName, facultyAbbreviation, studyField);
                     } else if (data.length == 7) {
                         // Student information
                         String firstName = data[0];
