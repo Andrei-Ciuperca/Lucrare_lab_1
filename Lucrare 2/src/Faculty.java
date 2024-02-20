@@ -13,6 +13,7 @@ public class Faculty  {
         this.abbreviation = abbreviation;
         this.studyField = studyField;
         faculties.add(this);
+        FileManagement.loggingFile("Created new Faculty: " + name + " " + abbreviation + " " + studyField);
     }
 
     public String toString(){
@@ -72,6 +73,8 @@ public class Faculty  {
         //System.out.println(student.getFirstName() + " " + student.getLastName() + " was added to the student list in the " + student.getFaculty().getName());
         studentList.add(student);
         student.setGraduated(false);
+
+        FileManagement.loggingFile("Student: " + student.getFirstName() + " " + student.getLastName() + " was added to the student list in the " + student.getFaculty().getName());
     }
 
 
@@ -80,7 +83,7 @@ public class Faculty  {
             if (student.getEmail().equals(email)) {
                 System.out.println(student.getFirstName() + " " + student.getLastName() + " has graduated from: " + student.getFaculty().getName());
                 student.setGraduated(true);
-                System.out.println(student.isGraduated());
+                FileManagement.loggingFile("Student: " + student.getFirstName() + " " + student.getFirstName() + " was graduated");
             }
         }
     }

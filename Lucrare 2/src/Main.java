@@ -91,10 +91,35 @@ public class Main {
                         case 3 -> Faculty.displayAllFaculties();
                         case 4 -> {
                             scanner.nextLine();
-                            System.out.println("Enter a Study Field: "); //TODO: transform this into a pick the field
-                            StudyField field = StudyField.valueOf(scanner.nextLine());
+                            //System.out.println("Enter a Study Field: "); //TODO: transform this into a pick the field
+                            System.out.println("""
+                                    Enter Study Field: \s  +
+                                    \t1.Mechanical Engineering
+                                    \t2.Software Engineering
+                                    \t3.Food technology
+                                    \t4.Urbanism Architecture
+                                    \t5.Veterinary medicine""");
 
-                            Faculty.displayAllFacultiesOfAField(field);
+                            switch (scanner.nextInt()){
+                                case 1 -> {
+                                    StudyField field = StudyField.MECHANICAL_ENGINEERING;
+                                    Faculty.displayAllFacultiesOfAField(field);                                }
+                                case 2 -> {
+                                    StudyField field = StudyField.SOFTWARE_ENGINEERING;
+                                    Faculty.displayAllFacultiesOfAField(field);                                }
+                                case 3 -> {
+                                    StudyField field = StudyField.FOOD_TECHNOLOGY;
+                                    Faculty.displayAllFacultiesOfAField(field);                                }
+                                case 4 -> {
+                                    StudyField field = StudyField.URBANISM_ARCHITECTURE;
+                                    Faculty.displayAllFacultiesOfAField(field);
+                                }
+                                case 5 -> {
+                                    StudyField field = StudyField.VETERINARY_MEDICINE;
+                                    Faculty.displayAllFacultiesOfAField(field);
+                                }
+                            }
+                            break;
                         }
                     }
                     break;
@@ -130,7 +155,6 @@ public class Main {
                             String sEmail = scanner.nextLine();
 
                             Faculty.graduateStudent(sEmail);
-
                         }
                         case 3 -> {
                             scanner.nextLine();
@@ -169,10 +193,12 @@ public class Main {
                         case 1 -> {
                             FileManagement.writeToFile(Faculty.getFaculties());
                             System.out.println("Saved all Faculties and Students!");
+                            FileManagement.loggingFile("Saved all Faculties and their respective Students into Faculties.txt");
                         }
                         case 2 -> {
                             FileManagement.readFromFile();
                             System.out.println("Loaded all Faculties and Students!");
+                            FileManagement.loggingFile("Loaded Faculties and Students from Faculties.txt");
                         }
                     }break;
                 case 4:

@@ -4,6 +4,21 @@ import java.util.*;
 
 class FileManagement {
 
+    // Logging
+    public static void loggingFile(String logText){
+        try {
+            File file = new File("LogFile.txt");
+            FileWriter fileWriter = new FileWriter(file.getAbsoluteFile(), true);
+            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
+            bufferedWriter.write(logText + " " + new Date());
+            bufferedWriter.newLine();
+            bufferedWriter.close();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    // Saving Faculties and Students
     public static void writeToFile(List<Faculty> faculties) {
         try {
             // Saving faculties and students
@@ -34,6 +49,8 @@ class FileManagement {
             e.printStackTrace();
         }
     }
+
+
 
     public static void readFromFile() {
         try {
