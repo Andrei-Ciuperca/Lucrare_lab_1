@@ -2,13 +2,11 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 public class Faculty  {
-    private ArrayList<Student> students;
     private String name;
     private String abbreviation;
-    private static ArrayList<Student> studentList;
+    private static ArrayList<Student> studentList = new ArrayList<>();
     private StudyField studyField;
-    private final ArrayList<Student> graduates;
-    private static final ArrayList<Faculty> faculties = new ArrayList<>();
+    private static ArrayList<Faculty> faculties = new ArrayList<>();
 
 
 
@@ -16,11 +14,30 @@ public class Faculty  {
         this.name = name;
         this.abbreviation = abbreviation;
         this.studyField = studyField;
-        studentList = new ArrayList<>();
-        this.graduates = new ArrayList<>();
         faculties.add(this);
-
+        assert studentList !=null;
     }
+
+    public String toString(){
+        return name+ ";" + abbreviation + ";" + studyField;
+    }
+    public String toStudentString(Student student) {
+        StringBuilder result = new StringBuilder();
+
+            result.append(student.getFirstName()).append(";")
+                    .append(student.getLastName()).append(";")
+                    .append(student.getEmail()).append(";")
+                    .append(student.getEnrollmentDate()).append(";")
+                    .append(student.getDateOfBirth()).append(";")
+                    .append(student.getFaculty().getAbbreviation()).append(";")
+                    .append(student.isGraduated()).append(";")
+                    .append("\n"); // Add faculty name for each student
+
+
+        return result.toString();
+    }
+
+
 
     public static Faculty getFacultyByAbbreviation(String abbreviation){
         for (Faculty faculties : faculties) {
@@ -60,10 +77,9 @@ public class Faculty  {
 
     // Faculty Operations
     public void createStudent(Student student){
+        System.out.println(student.getFirstName() + " " + student.getLastName() + " was added to the student list in the " + student.getFaculty().getName());
         studentList.add(student);
-        System.out.println(student.getFirstName() + " " + student.getLastName() + " was added to the student list");
         student.setGraduated(false);
-        System.out.println(student.isGraduated());
     }
 
 
@@ -78,7 +94,7 @@ public class Faculty  {
 
 
 
-// WHAT THE ACTUAL FUCK IS GOING ON
+    // WHAT THE ACTUAL FUCK IS GOING ON
     public static void displayStudents(String abbreviation, boolean isGraduated){
         for (Student student : studentList) {
             if (student.getFaculty().getAbbreviation().equals(abbreviation) && !student.isGraduated() && !isGraduated) {
@@ -100,13 +116,6 @@ public class Faculty  {
         }
     }
 
-    public ArrayList<Student> getStudents() {
-        return students;
-    }
-
-    public void setStudents(ArrayList<Student> students) {
-        this.students = students;
-    }
 
     public String getName() {
         return name;

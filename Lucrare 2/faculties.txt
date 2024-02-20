@@ -1,1 +1,11 @@
-Hello
+Trasnport;T;MECHANICAL_ENGINEERING
+Dragos;Carp;sebastian.finciuc@gmail.com;Tue Feb 20 01:32:47 EET 2024;Tue Feb 20 01:32:47 EET 2024;T;false;
+
+Food and Nutrition;FN;FOOD_TECHNOLOGY
+Sebastian;Finciuc;sebastian.finciuc@gmail.com;Tue Feb 20 01:32:47 EET 2024;Tue Feb 20 01:32:47 EET 2024;FN;false;
+Andrei;Ciuperca;sebastian.finciuc@gmail.com;Tue Feb 20 01:32:47 EET 2024;Tue Feb 20 01:32:47 EET 2024;FN;false;
+
+Urban Design;UD;URBANISM_ARCHITECTURE
+
+DEPARTMENT OF FOOD SAFETY AND PUBLIC HEALTH;DFSPH;VETERINARY_MEDICINE
+

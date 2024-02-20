@@ -20,6 +20,7 @@ public class Student {
 
     }
 
+
     public boolean isGraduated() {
         return isGraduated;
     }

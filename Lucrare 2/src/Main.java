@@ -1,4 +1,6 @@
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.Scanner;
 
 public class Main {
@@ -8,21 +10,28 @@ public class Main {
         boolean shouldFinish = false;
 
         // A faculty for each study field (For testing purposes)
-        Faculty T = new Faculty("Trasnport", "T", StudyField.MECHANICAL_ENGINEERING);
-        Faculty CSI = new Faculty("Computer Science", "CSI", StudyField.SOFTWARE_ENGINEERING);
-        Faculty FN = new Faculty("Food and Nutrition", "FN", StudyField.FOOD_TECHNOLOGY);
-        Faculty UD = new Faculty("Urban Design", "UD", StudyField.URBANISM_ARCHITECTURE);
-        Faculty DFSPH = new Faculty("DEPARTMENT OF FOOD SAFETY AND PUBLIC HEALTH", "DFSPH", StudyField.VETERINARY_MEDICINE);
+//        Faculty T = new Faculty("Trasnport", "T", StudyField.MECHANICAL_ENGINEERING);
+//       // Faculty CSI = new Faculty("Computer Science", "CSI", StudyField.SOFTWARE_ENGINEERING);
+//        Faculty FN = new Faculty("Food and Nutrition", "FN", StudyField.FOOD_TECHNOLOGY);
+//        Faculty UD = new Faculty("Urban Design", "UD", StudyField.URBANISM_ARCHITECTURE);
+//        Faculty DFSPH = new Faculty("DEPARTMENT OF FOOD SAFETY AND PUBLIC HEALTH", "DFSPH", StudyField.VETERINARY_MEDICINE);
+//
+//        // Hard coded students
+//        Student student2 = new Student("Sebastian", "Finciuc", "sebastian.finciuc@gmail.com", new Date(), new Date(), FN, false);
+//        FN.createStudent(student2);
+//        Student student1 = new Student("Andrei", "Ciuperca", "sebastian.finciuc@gmail.com", new Date(), new Date(), FN, false);
+//        FN.createStudent(student1);
+//        Student student3 = new Student("Dragos", "Carp", "sebastian.finciuc@gmail.com", new Date(), new Date(), T, false);
+//        T.createStudent(student3);
 
-        // Hard coded students
-        Student student2 = new Student("Sebastian", "Finciuc", "sebastian.finciuc@gmail.com", new Date(), new Date(), CSI, false);
-        CSI.createStudent(student2);
+
 
         while(!shouldFinish) {
             System.out.print("TUM Board Command Line \n" +
                     "\t1. General Operations \n" +
                     "\t2. Faculty Operations \n" +
-                    "\t3. Quit \n" +
+                    "\t3. File Management \n"+
+                    "\t4. Quit \n" +
                     "Please chose one of the above options: ");
             int choice = scanner.nextInt();
             switch (choice) {
@@ -126,8 +135,13 @@ public class Main {
                     break;
 
                 case 3:
+                    FileManagement.readFromFile();
+//                    FileManagement.writeToFile(Faculty.faculties);
+                    break;
+                case 4:
                     shouldFinish = true;
                     break;
+
 
                 default:
                     System.out.println("world");
