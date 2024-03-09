@@ -6,6 +6,7 @@ public class Main {
         //FolderMonitor.getFileNames();
         FolderMonitor.status();
         //System.out.println(FolderMonitor.getFileNames());
-        System.out.println("Hello world!");
+        System.out.println(FolderMonitor.test());
+        System.out.print("Hello world!"+((char)8)+"a");
     }
 }

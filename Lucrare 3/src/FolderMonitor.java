@@ -33,6 +33,36 @@ public class FolderMonitor {
         snapShotTime = new Date();
     }
 
+    public static boolean test() {
+
+        File file1 = new File("Z:\\catalin\\OOP\\Lucrari OOP\\Lucrari_OOP\\Lucrare 3\\gitSimulator\\Test.txt");
+        File file2 = new File("Z:\\catalin\\OOP\\Lucrari OOP\\Lucrari_OOP\\Lucrare 3\\gitSimulator\\Unmodified.txt");
+        // Check if both files exist
+        if (!file1.exists() || !file2.exists()) {
+            System.out.println("Error: One or both files do not exist.");
+            return false;
+        }
+
+        try (InputStream inputStream1 = new FileInputStream(file1);
+             InputStream inputStream2 = new FileInputStream(file2)) {
+            // Use byte-by-byte comparison for accuracy
+            int b1, b2;
+            do {
+                b1 = inputStream1.read();
+                b2 = inputStream2.read();
+                if (b1 != b2) {
+                    return false;
+                }
+            } while (b1 != -1); // Continue reading until end of streams (-1 indicates EOF)
+
+            return true;
+        } catch (IOException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
     // Save all file info in a separate text file
     public static void status(){
         // Compare current information inside file with new information
