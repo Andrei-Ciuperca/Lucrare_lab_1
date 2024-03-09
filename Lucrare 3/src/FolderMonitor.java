@@ -1,13 +1,64 @@
 import java.io.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.*;
+import java.nio.file.StandardCopyOption;
 import java.util.Date;
 
 public class FolderMonitor {
-    private static String FOLDER_PATH = "Z:\\catalin\\OOP\\Lucrari OOP\\Lucrari_OOP\\Lucrare 3\\gitSimulator";
-    public Date snapShotTime;
+    private static Date snapShotTime; // Tells you when the last commit was made
 
+
+// Commit command
+    /**
+     * Updates snapshot time. Moves all files from hardcoded folder into our "CLOUD"
+     */
+     public static void commit(String source, String destination) throws IOException {
+         // Update Snapshot Time and store it inside a file. (Commit file could store commit messages together with the date in later versions)
+         snapShotTime = new Date();
+         try{
+             Path path = Paths.get("CommitFile.txt");
+             Files.writeString(path, String.valueOf(snapShotTime));
+
+         }catch (IOException e){
+             e.printStackTrace();
+         }
+
+
+         // Copy files into "cloud"
+         Path localMachine = Paths.get(source);
+         Path cloud = Paths.get(destination);
+
+         // Copy directory structure recursively
+         Files.walk(localMachine).filter(path -> !path.equals(localMachine)) //Exclude the localMachine folder itself
+                 .forEach(path -> {
+                     Path target = cloud.resolve(path.getFileName());
+                     try{
+                         if (Files.isDirectory(path)){
+                             Files.createDirectories(target); // Create directories if they don't exist
+                         }else {
+                             Files.copy(path, target, StandardCopyOption.REPLACE_EXISTING);
+                         }
+                     }catch (IOException e){
+                         e.printStackTrace();
+                     }
+                 });
+
+     }
+
+     public static void status(){
+
+     }
+
+
+
+/* Old deprecated code
     public FolderMonitor(Date snapShotTime) {
         this.snapShotTime = snapShotTime;
     }
+
+
 
 
     // Used for listing all files within directory
@@ -132,4 +183,5 @@ public class FolderMonitor {
     public Date getSnapShotTime() {
         return snapShotTime;
     }
+    */
 }
