@@ -1,7 +1,8 @@
 import java.io.IOException;
+import java.security.NoSuchAlgorithmException;
 
 public class Main {
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, NoSuchAlgorithmException {
 
         final String CLOUD_PATH = "Z:\\catalin\\OOP\\Lucrari OOP\\Lucrari_OOP\\Lucrare 3\\Cloud"; // Folder used for storing files after commit (Emulates your GitHub repository)
         final String FOLDER_PATH = "Z:\\catalin\\OOP\\Lucrari OOP\\Lucrari_OOP\\Lucrare 3\\LocalMachine"; // Local folder used for keeping files you can edit (Emulates your local machine)
