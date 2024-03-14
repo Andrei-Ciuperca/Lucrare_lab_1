@@ -11,12 +11,20 @@ public class Main {
         // Interactive command line
         Scanner scanner = new Scanner(System.in);
         boolean shouldFinish = false;
+        //Info info = new Info();
+        //info.fileInfo(FOLDER_PATH,"Test.txt");
+        TextFiles infoText = new TextFiles();
+        //infoText.fileInfo(FOLDER_PATH, "Test.txt");
+        ImageFiles infoImage = new ImageFiles();
+        //infoImage.fileInfo(FOLDER_PATH, "Image.jpeg");
+        ProgramFiles infoProgram = new ProgramFiles();
+        //infoProgram.fileInfo(FOLDER_PATH, "Info.java");
 
         while (!shouldFinish){
             System.out.println("""
                     GIT CLI\s
                     \t1. Commit\s
-                    \t2. Info <argument>\s
+                    \t2. Info <fileName.extension>\s
                     \t3. Status
                     \t4. Quit
                     Please choose one of the above options:\s""");

@@ -53,5 +53,7 @@ public class DefaultCommands extends FolderMonitor {
          System.out.println("\n");
      }
 
-     
+     public static void info(){
+
+     }
 }

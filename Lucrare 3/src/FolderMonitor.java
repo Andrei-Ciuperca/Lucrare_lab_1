@@ -3,6 +3,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Objects;
 
 public class FolderMonitor {
     public static void compareFolders(String localMachine, String cloud) throws IOException, NoSuchAlgorithmException {
@@ -16,7 +17,7 @@ public class FolderMonitor {
         }
 
         // Loop through the localMachine files
-        for (File localFile : source.listFiles()){
+        for (File localFile : Objects.requireNonNull(source.listFiles())){
             String localFileName = localFile.getName();
             String localChecksum = getMD5Checksum(localFile);
             File cloudFile = new File(cloud + File.separator + localFileName);
