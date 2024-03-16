@@ -1,187 +1,70 @@
-import java.io.*;
+import java.io.File;
+import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.nio.*;
-import java.nio.file.StandardCopyOption;
-import java.util.Date;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Objects;
 
 public class FolderMonitor {
-    private static Date snapShotTime; // Tells you when the last commit was made
+    public static void compareFolders(String localMachine, String cloud, boolean isLoop) throws IOException, NoSuchAlgorithmException {
+        File source = new File(localMachine);
+        File destination = new File(cloud);
 
-
-// Commit command
-    /**
-     * Updates snapshot time. Moves all files from hardcoded folder into our "CLOUD"
-     */
-     public static void commit(String source, String destination) throws IOException {
-         // Update Snapshot Time and store it inside a file. (Commit file could store commit messages together with the date in later versions)
-         snapShotTime = new Date();
-         try{
-             Path path = Paths.get("CommitFile.txt");
-             Files.writeString(path, String.valueOf(snapShotTime));
-
-         }catch (IOException e){
-             e.printStackTrace();
-         }
-
-
-         // Copy files into "cloud"
-         Path localMachine = Paths.get(source);
-         Path cloud = Paths.get(destination);
-
-         // Copy directory structure recursively
-         Files.walk(localMachine).filter(path -> !path.equals(localMachine)) //Exclude the localMachine folder itself
-                 .forEach(path -> {
-                     Path target = cloud.resolve(path.getFileName());
-                     try{
-                         if (Files.isDirectory(path)){
-                             Files.createDirectories(target); // Create directories if they don't exist
-                         }else {
-                             Files.copy(path, target, StandardCopyOption.REPLACE_EXISTING);
-                         }
-                     }catch (IOException e){
-                         e.printStackTrace();
-                     }
-                 });
-
-     }
-
-     public static void status(){
-
-     }
-
-
-
-/* Old deprecated code
-    public FolderMonitor(Date snapShotTime) {
-        this.snapShotTime = snapShotTime;
-    }
-
-
-
-
-    // Used for listing all files within directory
-    private static String storeFileInfo() {
-        File directory = new File(FOLDER_PATH);
-        if (directory.exists() && directory.isDirectory()) {
-            StringBuilder sb = new StringBuilder(); // Use StringBuilder for efficient string concatenation
-            File[] files = directory.listFiles();
-            for (File file : files) {
-                if (!file.isDirectory()) {
-                    sb.append(file.getName() + " " + new Date(file.lastModified()) + "\n");
-                }
-            }
-            return sb.toString().trim(); // Remove trailing newline if any
-        } else {
-            System.out.println("Provided directory does not exist");
+        // Check if the folders exist
+        if (!source.exists() || !destination.exists()){
+            System.out.println("One or both folders can't be found or don't exist");
+            return;
         }
 
-        return null;
-    }
+        // Loop through the localMachine files
+        for (File localFile : Objects.requireNonNull(source.listFiles())){
+            String localFileName = localFile.getName();
+            String localChecksum = getMD5Checksum(localFile);
+            File cloudFile = new File(cloud + File.separator + localFileName);
 
-    public void commit(){
-        snapShotTime = new Date();
-    }
-
-    public static boolean test() {
-
-        File file1 = new File("Z:\\catalin\\OOP\\Lucrari OOP\\Lucrari_OOP\\Lucrare 3\\gitSimulator\\Test.txt");
-        File file2 = new File("Z:\\catalin\\OOP\\Lucrari OOP\\Lucrari_OOP\\Lucrare 3\\gitSimulator\\Unmodified.txt");
-        // Check if both files exist
-        if (!file1.exists() || !file2.exists()) {
-            System.out.println("Error: One or both files do not exist.");
-            return false;
-        }
-
-        try (InputStream inputStream1 = new FileInputStream(file1);
-             InputStream inputStream2 = new FileInputStream(file2)) {
-            // Use byte-by-byte comparison for accuracy
-            int b1, b2;
-            do {
-                b1 = inputStream1.read();
-                b2 = inputStream2.read();
-                if (b1 != b2) {
-                    return false;
-                }
-            } while (b1 != -1); // Continue reading until end of streams (-1 indicates EOF)
-
-            return true;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
-    }
-
-
-    // Save all file info in a separate text file
-    public static void status(){
-        // Compare current information inside file with new information
-
-            // Read previous file infro from CommitFile.txt
-        String previousFileData = null;
-        try (BufferedReader reader = new BufferedReader(new FileReader("CommitFile.txt"))) {
-            StringBuilder sb = new StringBuilder();
-            String line;
-            while ((line = reader.readLine()) != null) {
-                sb.append(line).append("\n"); // Add newline after each line
-            }
-            previousFileData = sb.toString().trim();
-            //System.out.println(previousFileData); // Print for verification (optional)
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-            //Get the current file info
-        String currentFileData = storeFileInfo();
-       // System.out.println(currentFileData); // Print for verification (optional)
-
-        // Compare and print detailed messages
-        if (!currentFileData.equals(previousFileData)) {
-            System.out.println("Files changed:");
-            String[] currentLines = currentFileData.split("\n"); // Split by newlines
-            String[] previousLines = (previousFileData != null) ? previousFileData.split("\n") : new String[0]; // Handle potential null
-
-            // Loop through current lines
-            for (String currentLine : currentLines) {
-                boolean foundUnchanged = false;
-                for (String previousLine : previousLines) {
-                    if (currentLine.startsWith(previousLine)) { // Check if filename and extension match
-                        foundUnchanged = true;
-                        break;
+            // Check if file exists in Cloud folder
+            if (!cloudFile.exists()){
+                System.out.println(localFileName + " - new");
+            }else {
+                try {
+                    String cloudChecksum = getMD5Checksum(cloudFile);
+                    if (localChecksum.equals(cloudChecksum) && !isLoop){
+                        System.out.println(localFileName + " - unchanged");
+                    }else if (!localChecksum.equals(cloudChecksum)){
+                        System.out.println(localFileName + " - changed");
                     }
+                } catch (IOException e) {
+                    throw new RuntimeException(e);
                 }
-
-                if (!foundUnchanged) {
-                    String filename = currentLine.trim().split(" ")[0]; // Extract filename (assuming space separated)
-                    System.out.println("  - " + filename + " - Changed");
-                }
-            }
-        } else {
-            System.out.println("Files unchanged:");
-            String[] currentLines = currentFileData.split("\n");
-            for (String currentLine : currentLines) {
-                String filename = currentLine.trim().split(" ")[0]; // Extract filename (assuming space separated)
-                System.out.println("  - " + filename + " - Unchanged");
             }
         }
+        // Loop through cloud files (to find new files)
+        for (File cloudFile : Objects.requireNonNull(destination.listFiles())) {
+            String cloudFileName = cloudFile.getName();
+            File localFile = new File(localMachine + File.separator + cloudFileName);
 
-
-        // Write all new information about the files in our folder
-        try {
-            File file = new File("CommitFile.txt");
-            FileWriter fileWriter = new FileWriter(file.getAbsoluteFile());
-            BufferedWriter bufferedWriter = new BufferedWriter(fileWriter);
-            bufferedWriter.write(storeFileInfo());
-            bufferedWriter.newLine();
-            bufferedWriter.close();
-        }catch (Exception e){
-            e.printStackTrace();
+            // Check if the file doesn't exist in localMachine
+            if (!localFile.exists()){
+                System.out.println(cloudFileName + " - deleted");
+            }
         }
     }
 
-    public Date getSnapShotTime() {
-        return snapShotTime;
+    public static String getMD5Checksum(File file) throws IOException, NoSuchAlgorithmException { // Calculates MD5 checksum for a given file
+        MessageDigest messageDigest = MessageDigest.getInstance("MD5");
+        byte[] bytes = Files.readAllBytes(file.toPath());
+        messageDigest.update(bytes);
+        byte[] digest = messageDigest.digest();
+        return convertByteArrayToHex(digest);
     }
-    */
+
+    private static String convertByteArrayToHex(byte[] bytes){ // Convert byte array of checksum to hexadecimal String
+        StringBuilder sb = new StringBuilder();
+        for (byte b : bytes){
+            sb.append(String.format("%02x",b));
+        }
+        return sb.toString();
+    }
 }
