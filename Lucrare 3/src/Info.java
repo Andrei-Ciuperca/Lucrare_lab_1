@@ -8,14 +8,18 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Objects;
 import java.nio.file.Files;
-import java.util.Scanner;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import java.util.stream.Stream;
 
 public class Info {
+    /**
+     * Gives you basic file information: File name, extension, created and update date and time
+     * @param localMachine LOCAL FOLDER
+     * @param fileName Any file type
+     * @throws IOException
+     */
     public void fileInfo(String localMachine ,String fileName) throws IOException {
         // Getting the file
             File localFile = new File(localMachine + File.separator + fileName);
@@ -40,6 +44,12 @@ public class Info {
 }
 
 class ImageFiles extends Info{
+    /**
+     * Gives you basic file information: File name, extension, created and update date and time as well as image size (ex. 1024x860)
+     * @param localMachine LOCAL FOLDER
+     * @param fileName png, jpg, jpeg
+     * @throws IOException
+     */
     @Override
     public void fileInfo(String localMachine, String fileName) throws IOException {
         super.fileInfo(localMachine, fileName);

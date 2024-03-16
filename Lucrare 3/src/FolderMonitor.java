@@ -3,10 +3,12 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.Objects;
 
 public class FolderMonitor {
-    public static void compareFolders(String localMachine, String cloud) throws IOException, NoSuchAlgorithmException {
+    public static void compareFolders(String localMachine, String cloud, boolean isLoop) throws IOException, NoSuchAlgorithmException {
         File source = new File(localMachine);
         File destination = new File(cloud);
 
@@ -28,9 +30,9 @@ public class FolderMonitor {
             }else {
                 try {
                     String cloudChecksum = getMD5Checksum(cloudFile);
-                    if (localChecksum.equals(cloudChecksum)){
+                    if (localChecksum.equals(cloudChecksum) && !isLoop){
                         System.out.println(localFileName + " - unchanged");
-                    }else {
+                    }else if (!localChecksum.equals(cloudChecksum)){
                         System.out.println(localFileName + " - changed");
                     }
                 } catch (IOException e) {
@@ -39,7 +41,7 @@ public class FolderMonitor {
             }
         }
         // Loop through cloud files (to find new files)
-        for (File cloudFile : destination.listFiles()) {
+        for (File cloudFile : Objects.requireNonNull(destination.listFiles())) {
             String cloudFileName = cloudFile.getName();
             File localFile = new File(localMachine + File.separator + cloudFileName);
 
